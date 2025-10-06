@@ -14,14 +14,14 @@ class PhpIco
      *
      * @var array
      */
-    private $_images = array();
+    private $images = array();
 
     /**
      * Flag to tell if the required functions exist.
      *
      * @var boolean
      */
-    private $_has_requirements = false;
+    private $has_requirements = false;
 
 
     /**
@@ -55,11 +55,11 @@ class PhpIco
             }
         }
 
-        $this->_has_requirements = true;
+        $this->has_requirements = true;
 
 
-        if (false != $file) {
-            $this->add_image($file, $sizes);
+        if ($file) {
+            $this->addImage($file, $sizes);
         }
     }
 
@@ -75,13 +75,13 @@ class PhpIco
      * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the source image should be rendered at in the generated ICO file. If sizes are not supplied, the size of the source image will be used.
      * @return boolean true on success and false on failure.
      */
-    public function add_image($file, $sizes = array())
+    public function addImage($file, $sizes = array())
     {
-        if (! $this->_has_requirements) {
+        if (! $this->has_requirements) {
             return false;
         }
 
-        if (false === ($im = $this->_load_image_file($file))) {
+        if (false === ($im = $this->loadImageFile($file))) {
             return false;
         }
 
@@ -111,7 +111,7 @@ class PhpIco
                 continue;
             }
 
-            $this->_add_image_data($new_im);
+            $this->addImageData($new_im);
         }
 
         return true;
@@ -123,13 +123,13 @@ class PhpIco
      * @param string $file Path to save the ICO file data into.
      * @return boolean true on success and false on failure.
      */
-    public function save_ico($file)
+    public function saveIco($file)
     {
-        if (! $this->_has_requirements) {
+        if (! $this->has_requirements) {
             return false;
         }
 
-        if (false === ($data = $this->_get_ico_data())) {
+        if (false === ($data = $this->getIcoData())) {
             return false;
         }
 
@@ -150,21 +150,21 @@ class PhpIco
     /**
      * Generate the final ICO data by creating a file header and adding the image data.
      */
-    private function _get_ico_data()
+    protected function getIcoData()
     {
-        if (! is_array($this->_images) || empty($this->_images)) {
+        if (! is_array($this->images) || empty($this->images)) {
             return false;
         }
 
 
-        $data = pack('vvv', 0, 1, count($this->_images));
+        $data = pack('vvv', 0, 1, count($this->images));
         $pixel_data = '';
 
         $icon_dir_entry_size = 16;
 
-        $offset = 6 + ($icon_dir_entry_size * count($this->_images));
+        $offset = 6 + ($icon_dir_entry_size * count($this->images));
 
-        foreach ($this->_images as $image) {
+        foreach ($this->images as $image) {
             $data .= pack('CCCCvvVV', $image['width'], $image['height'], $image['color_palette_colors'], 0, 1, $image['bits_per_pixel'], $image['size'], $offset);
             $pixel_data .= $image['data'];
 
@@ -181,7 +181,7 @@ class PhpIco
     /**
      * Take a GD image resource and change it into a raw BMP format.
      */
-    private function _add_image_data($im)
+    protected function addImageData($im)
     {
         $width = imagesx($im);
         $height = imagesy($im);
@@ -250,13 +250,13 @@ class PhpIco
             'data'                 => $data,
         );
 
-        $this->_images[] = $image;
+        $this->images[] = $image;
     }
 
     /**
      * Read in the source image file and convert it into a GD image resource.
      */
-    private function _load_image_file($file)
+    protected function loadImageFile($file)
     {
         if (!is_string($file) || empty($file)) {
             return false;

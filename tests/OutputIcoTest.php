@@ -107,7 +107,7 @@ class OutputIcoTest extends TestCase
 
         $ico = new PhpIco($file, $sizes);
         $outputToHere = tempnam(sys_get_temp_dir(), 'PHP_ICO_tests');
-        $this->assertTrue($ico->save_ico($outputToHere));
+        $this->assertTrue($ico->saveIco($outputToHere));
         $this->assertSame(sha1_file($file . '.ico'), sha1_file($outputToHere));
         unlink($outputToHere);
     }
@@ -117,7 +117,7 @@ class OutputIcoTest extends TestCase
     */
     public function testAddImageBadFiles($file, $sizes) {
         $ico = new PhpIco();
-        $this->assertFalse($ico->add_image($file, $sizes));
+        $this->assertFalse($ico->addImage($file, $sizes));
     }
 
     /**
@@ -128,10 +128,10 @@ class OutputIcoTest extends TestCase
         $ico = new PhpIco();
         foreach ($arrayOfFilesAndSizes as $file => $sizes)
         {
-            $ico->add_image($file, $sizes);
+            $ico->addImage($file, $sizes);
         }
         $outputToHere = tempnam(sys_get_temp_dir(), 'PHP_ICO_tests');
-        $this->assertFalse($ico->save_ico($outputToHere));
+        $this->assertFalse($ico->saveIco($outputToHere));
         unlink($outputToHere);
     }
 }
