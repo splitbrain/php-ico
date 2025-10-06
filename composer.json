@@ -1,37 +1,42 @@
 {
     "name": "chrisjean/php-ico",
     "description": "An easy-to-use library to generate valid ICO files.",
-    "version": "1.0.4",
     "keywords": ["ico", "favicon"],
-    "homepage": "https://github.com/chrisbliss18/php-ico",
+    "homepage": "https://github.com/splitbrain/php-ico",
     "license": "GPL-2.0+",
     "authors": [
         {
             "name": "Chris Jean",
             "homepage": "https://chrisjean.com",
             "role": "Developer"
+        },
+        {
+            "name": "SignpostMarv",
+            "homepage": "https://signpostmarv.name",
+            "role": "Developer"
+        },
+        {
+            "name": "Andreas Gohr",
+            "homepage": "https://www.splitbrain.org",
+            "role": "Maintainer"
         }
     ],
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true
     },
-    "support": {
-        "issues": "https://github.com/chrisbliss18/php-ico/issues",
-        "source": "https://github.com/chrisbliss18/php-ico"
-    },
     "require": {
-        "php": ">=5.2.4",
+        "php": ">=7.3",
         "ext-gd": "*"
     },
     "autoload": {
       "psr-4": {
-        "phpico\\": "src/"
+        "splitbrain\\phpico\\": "src/"
       }
     },
     "autoload-dev": {
         "psr-4": {
-            "phpico\\Tests\\": "tests/"
+            "splitbrain\\phpico\\Tests\\": "tests/"
         }
     },
     "scripts": {

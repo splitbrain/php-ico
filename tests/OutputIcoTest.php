@@ -1,9 +1,9 @@
 <?php
 declare (strict_types=1);
 
-namespace phpico\Tests;
+namespace splitbrain\phpico\Tests;
 
-use phpico\PhpIco;
+use splitbrain\phpico\PhpIco;
 use PHPUnit\Framework\TestCase;
 
 class OutputIcoTest extends TestCase

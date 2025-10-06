@@ -5,7 +5,7 @@ Copyright 2011-2016 Chris Jean & iThemes
 Licensed under GPLv2 or above
 */
 
-namespace phpico;
+namespace splitbrain\phpico;
 
 class PhpIco
 {

@@ -8,10 +8,10 @@
          processIsolation="false"
          stopOnError="false"
          stopOnFailure="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
          >
   <testsuites>
-    <testsuite name="PHP_ICO Test Suite">
+    <testsuite name="Test Suite">
       <directory suffix="Test.php">./tests</directory>
     </testsuite>
   </testsuites>
