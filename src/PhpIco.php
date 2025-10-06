@@ -31,7 +31,9 @@ class PhpIco
      * function in order to generate an ICO file.
      *
      * @param string $file Optional. Path to the source image file.
-     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the source image should be rendered at in the generated ICO file. If sizes are not supplied, the size of the source image will be used.
+     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height)
+     *                               that the source image should be rendered at in the generated ICO file.
+     *                               If sizes are not supplied, the size of the source image will be used.
      */
     public function __construct($file = false, $sizes = array())
     {
@@ -49,8 +51,13 @@ class PhpIco
         );
 
         foreach ($required_functions as $function) {
-            if (! function_exists($function)) {
-                trigger_error("The PHP_ICO class was unable to find the $function function, which is part of the GD library. Ensure that the system has the GD library installed and that PHP has access to it through a PHP interface, such as PHP's GD module. Since this function was not found, the library will be unable to create ICO files.");
+            if (!function_exists($function)) {
+                trigger_error(
+                    "The PhpIco class was unable to find the $function function, which is part of the GD library. ".
+                    'Ensure that the system has the GD library installed and that PHP has access to it through a PHP '.
+                    'interface, such as PHP\'s GD module. Since this function was not found, the library will be '.
+                    'unable to create ICO files.'
+                );
                 return;
             }
         }
@@ -72,12 +79,14 @@ class PhpIco
      * resolutions while a larger source image can be used for large resolutions.
      *
      * @param string $file Path to the source image file.
-     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the source image should be rendered at in the generated ICO file. If sizes are not supplied, the size of the source image will be used.
+     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the source
+     *                     image should be rendered at in the generated ICO file. If sizes are not supplied, the size
+     *                     of the source image will be used.
      * @return boolean true on success and false on failure.
      */
     public function addImage($file, $sizes = array())
     {
-        if (! $this->has_requirements) {
+        if (!$this->has_requirements) {
             return false;
         }
 
@@ -87,15 +96,15 @@ class PhpIco
 
 
         if (empty($sizes)) {
-            $sizes = array( imagesx($im), imagesy($im) );
+            $sizes = array(imagesx($im), imagesy($im));
         }
 
         // If just a single size was passed, put it in array.
-        if (! is_array($sizes[0])) {
-            $sizes = array( $sizes );
+        if (!is_array($sizes[0])) {
+            $sizes = array($sizes);
         }
 
-        foreach ((array) $sizes as $size) {
+        foreach ((array)$sizes as $size) {
             list($width, $height) = $size;
 
             $new_im = imagecreatetruecolor($width, $height);
@@ -107,7 +116,18 @@ class PhpIco
             $source_width = imagesx($im);
             $source_height = imagesy($im);
 
-            if (false === imagecopyresampled($new_im, $im, 0, 0, 0, 0, $width, $height, $source_width, $source_height)) {
+            if (false === imagecopyresampled(
+                    $new_im,
+                    $im,
+                    0,
+                    0,
+                    0,
+                    0,
+                    $width,
+                    $height,
+                    $source_width,
+                    $source_height)
+            ) {
                 continue;
             }
 
@@ -125,7 +145,7 @@ class PhpIco
      */
     public function saveIco($file)
     {
-        if (! $this->has_requirements) {
+        if (!$this->has_requirements) {
             return false;
         }
 
@@ -152,7 +172,7 @@ class PhpIco
      */
     protected function getIcoData()
     {
-        if (! is_array($this->images) || empty($this->images)) {
+        if (!is_array($this->images) || empty($this->images)) {
             return false;
         }
 
@@ -165,7 +185,17 @@ class PhpIco
         $offset = 6 + ($icon_dir_entry_size * count($this->images));
 
         foreach ($this->images as $image) {
-            $data .= pack('CCCCvvVV', $image['width'], $image['height'], $image['color_palette_colors'], 0, 1, $image['bits_per_pixel'], $image['size'], $offset);
+            $data .= pack(
+                'CCCCvvVV',
+                $image['width'],
+                $image['height'],
+                $image['color_palette_colors'],
+                0,
+                1,
+                $image['bits_per_pixel'],
+                $image['size'],
+                $offset
+            );
             $pixel_data .= $image['data'];
 
             $offset += $image['size'];
@@ -242,12 +272,12 @@ class PhpIco
 
 
         $image = array(
-            'width'                => $width,
-            'height'               => $height,
+            'width' => $width,
+            'height' => $height,
             'color_palette_colors' => 0,
-            'bits_per_pixel'       => 32,
-            'size'                 => $image_header_size + $color_mask_size + $opacity_mask_size,
-            'data'                 => $data,
+            'bits_per_pixel' => 32,
+            'size' => $image_header_size + $color_mask_size + $opacity_mask_size,
+            'data' => $data,
         );
 
         $this->images[] = $image;
