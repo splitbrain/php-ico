@@ -17,14 +17,6 @@ class PhpIco
     private $images = array();
 
     /**
-     * Flag to tell if the required functions exist.
-     *
-     * @var boolean
-     */
-    private $has_requirements = false;
-
-
-    /**
      * Constructor - Create a new ICO generator.
      *
      * If the constructor is not passed a file, a file will need to be supplied using the {@link PHP_ICO::add_image}
@@ -52,18 +44,14 @@ class PhpIco
 
         foreach ($required_functions as $function) {
             if (!function_exists($function)) {
-                trigger_error(
+                throw new \RuntimeException(
                     "The PhpIco class was unable to find the $function function, which is part of the GD library. ".
                     'Ensure that the system has the GD library installed and that PHP has access to it through a PHP '.
                     'interface, such as PHP\'s GD module. Since this function was not found, the library will be '.
                     'unable to create ICO files.'
                 );
-                return;
             }
         }
-
-        $this->has_requirements = true;
-
 
         if ($file) {
             $this->addImage($file, $sizes);
@@ -86,10 +74,6 @@ class PhpIco
      */
     public function addImage($file, $sizes = array())
     {
-        if (!$this->has_requirements) {
-            return false;
-        }
-
         if (false === ($im = $this->loadImageFile($file))) {
             return false;
         }
@@ -145,10 +129,6 @@ class PhpIco
      */
     public function saveIco($file)
     {
-        if (!$this->has_requirements) {
-            return false;
-        }
-
         if (false === ($data = $this->getIcoData())) {
             return false;
         }
