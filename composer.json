@@ -25,13 +25,13 @@
         "ext-gd": "*"
     },
     "autoload": {
-        "classmap": [
-            "class-php-ico.php"
-        ]
+      "psr-4": {
+        "phpico\\": "src/"
+      }
     },
     "autoload-dev": {
         "psr-4": {
-            "PHP_ICO\\Tests\\": "tests/"
+            "phpico\\Tests\\": "tests/"
         }
     },
     "scripts": {
