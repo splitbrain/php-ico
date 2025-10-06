@@ -6,6 +6,8 @@ The class uses the GD library for reading an image from the source file and uses
 
 This is a fork of the original class by [Chris Jean](https://github.com/chrisbliss18/php-ico) with tests and fixes by [SignpostMarv](https://github.com/SignpostMarv/php-ico/tree/tests). I did some cleanup and namespace adjustments to make it easier to use in my projects.
 
+Versioning of this package starts at 1.2.0 to not conflict with the original package.
+
 ## ICO Format Details
 
 The primary goal of creating this class was to have a simple-to-use and reliable method of generating ICO files for use as [favicons](http://en.wikipedia.org/wiki/Favicon) in websites. This goal drove much of the development and is the reason for some of the limitations in the resulting functionality.

@@ -1,5 +1,5 @@
 {
-    "name": "chrisjean/php-ico",
+    "name": "splitbrain/php-ico",
     "description": "An easy-to-use library to generate valid ICO files.",
     "keywords": ["ico", "favicon"],
     "homepage": "https://github.com/splitbrain/php-ico",
