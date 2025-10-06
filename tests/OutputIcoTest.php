@@ -4,13 +4,14 @@ declare (strict_types=1);
 namespace PHP_ICO\Tests;
 
 use PHP_ICO;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class EasyDBTest
  * @package ParagonIE\EasyDB\Tests
  */
-class OutputIcoTest extends PHPUnit_Framework_TestCase
+class OutputIcoTest extends TestCase
 {
 
     public function goodAddImageSingleProvider()
